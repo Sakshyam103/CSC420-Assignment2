@@ -27,9 +27,9 @@ public class PaintCircle extends JPanel{
             setBorder(BorderFactory.createLineBorder(Color.black));
         }
 
-        public Dimension getPreferredSize() {
-            return new Dimension(250,200);
-        }
+//        public Dimension getPreferredSize() {
+//            return new Dimension(250,200);
+//        }
 
 //        public void paintComponent(int x, int y, Color color) {
 //           Graphics(g)

@@ -10,8 +10,8 @@ import java.util.Map;
 public class MyPanel extends JFrame{
 
     JLabel picture;
-    int height = 30 ;
-    int width = 30;
+    int height = 363 - 16 - 25 ;   //16 for extra length and 25 for center
+    int width =  12 - 25 ;
     JComboBox<String> comboBox;
     Map<String, Color> map;
 //    public JPanel getPanel(){
@@ -34,22 +34,24 @@ public class MyPanel extends JFrame{
         map.put("Gray", Color.GRAY);
 //        JLabel canvas = new JLabel("Canvas");
         JLabel label = new JLabel("test");
+//        height = (height / 100 ) * canvas.getHeight();
+//        width = (width / 100 ) * canvas.getWidth();
 //        canvas.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         canvas.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 //        canvas.setSize(450, 450);
-        JSlider hSlider = new JSlider(JSlider.HORIZONTAL, 0, 363, 25);
+        JSlider hSlider = new JSlider(JSlider.HORIZONTAL, 12, 440 - 12, 12);
       hSlider.addChangeListener(new ChangeListener() {
           @Override
           public void stateChanged(ChangeEvent e) {
               JSlider source = (JSlider) e.getSource();
               if(!source.getValueIsAdjusting()){
-                  width = (int) ((source.getValue()));
+                  width = (int) ((source.getValue() - 25));
                   System.out.println("Canvas width: " +canvas.getWidth());
                   System.out.println("Width: "+ width);
               }
           }
       });
-        JSlider vSlider = new JSlider(JSlider.VERTICAL, 0, 363, 363 - 25);
+        JSlider vSlider = new JSlider(JSlider.VERTICAL, 16, 363-16, 16);
 //        hSlider.setPreferredSize(new Dimension(500, 10));
         String[] colors = {"Black","Blue","Green","Gray","Yellow","Red"};
         JButton button = new JButton("Show");
@@ -80,8 +82,8 @@ public class MyPanel extends JFrame{
                 .addComponent(vSlider)
                 .addGroup(layout.createParallelGroup()
                         .addComponent(label)
-                        .addComponent(canvas, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(hSlider)
+                        .addComponent(canvas, GroupLayout.PREFERRED_SIZE, 440, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hSlider, GroupLayout.PREFERRED_SIZE, 440, GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(comboBox, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(button,GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -93,9 +95,9 @@ public class MyPanel extends JFrame{
       layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(label)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(vSlider)
-                        .addComponent(canvas, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addComponent(hSlider)
+                        .addComponent(vSlider, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(canvas, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
+                .addComponent(hSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(comboBox)
                         .addComponent(button)));
@@ -138,6 +140,7 @@ public class MyPanel extends JFrame{
               Graphics g = canvas.getGraphics();
               if(button.getText().equals("Show")) {
                   canvas.paintComponent(g, width, height, color1);
+                 // canvas.paintComponent(g, , 363 - 16 , color1);
                   button.setText("Hide");
               }else{
                   canvas.removeComponent(g);
